@@ -1,0 +1,3 @@
+C:/c++/Integration tool/build/CMakeFiles/Calculator.dir
+C:/c++/Integration tool/build/CMakeFiles/edit_cache.dir
+C:/c++/Integration tool/build/CMakeFiles/rebuild_cache.dir

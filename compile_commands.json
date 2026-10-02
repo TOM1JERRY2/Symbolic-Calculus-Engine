@@ -1,0 +1,38 @@
+[
+{
+  "directory": "C:/c++/Integration tool/build",
+  "command": "C:\\mingw64\\bin\\c++.exe -I\"C:/c++/Integration tool/lexer\" -I\"C:/c++/Integration tool/Parser\" -I\"C:/c++/Integration tool/integrator\" -isystem \"C:/c++/Integration tool\" -g -std=gnu++17 -o CMakeFiles\\Calculator.dir\\Server.cpp.obj -c \"C:\\c++\\Integration tool\\Server.cpp\"",
+  "file": "C:/c++/Integration tool/Server.cpp",
+  "output": "C:/c++/Integration tool/build/CMakeFiles/Calculator.dir/Server.cpp.obj"
+},
+{
+  "directory": "C:/c++/Integration tool/build",
+  "command": "C:\\mingw64\\bin\\c++.exe -I\"C:/c++/Integration tool/lexer\" -I\"C:/c++/Integration tool/Parser\" -I\"C:/c++/Integration tool/integrator\" -isystem \"C:/c++/Integration tool\" -g -std=gnu++17 -o CMakeFiles\\Calculator.dir\\lexer\\lexer.cpp.obj -c \"C:\\c++\\Integration tool\\lexer\\lexer.cpp\"",
+  "file": "C:/c++/Integration tool/lexer/lexer.cpp",
+  "output": "C:/c++/Integration tool/build/CMakeFiles/Calculator.dir/lexer/lexer.cpp.obj"
+},
+{
+  "directory": "C:/c++/Integration tool/build",
+  "command": "C:\\mingw64\\bin\\c++.exe -I\"C:/c++/Integration tool/lexer\" -I\"C:/c++/Integration tool/Parser\" -I\"C:/c++/Integration tool/integrator\" -isystem \"C:/c++/Integration tool\" -g -std=gnu++17 -o CMakeFiles\\Calculator.dir\\Parser\\Parser.cpp.obj -c \"C:\\c++\\Integration tool\\Parser\\Parser.cpp\"",
+  "file": "C:/c++/Integration tool/Parser/Parser.cpp",
+  "output": "C:/c++/Integration tool/build/CMakeFiles/Calculator.dir/Parser/Parser.cpp.obj"
+},
+{
+  "directory": "C:/c++/Integration tool/build",
+  "command": "C:\\mingw64\\bin\\c++.exe -I\"C:/c++/Integration tool/lexer\" -I\"C:/c++/Integration tool/Parser\" -I\"C:/c++/Integration tool/integrator\" -isystem \"C:/c++/Integration tool\" -g -std=gnu++17 -o CMakeFiles\\Calculator.dir\\integrator\\Integrator.cpp.obj -c \"C:\\c++\\Integration tool\\integrator\\Integrator.cpp\"",
+  "file": "C:/c++/Integration tool/integrator/Integrator.cpp",
+  "output": "C:/c++/Integration tool/build/CMakeFiles/Calculator.dir/integrator/Integrator.cpp.obj"
+},
+{
+  "directory": "C:/c++/Integration tool/build",
+  "command": "C:\\mingw64\\bin\\c++.exe -I\"C:/c++/Integration tool/lexer\" -I\"C:/c++/Integration tool/Parser\" -I\"C:/c++/Integration tool/integrator\" -isystem \"C:/c++/Integration tool\" -g -std=gnu++17 -o CMakeFiles\\Calculator.dir\\integrator\\Printer.cpp.obj -c \"C:\\c++\\Integration tool\\integrator\\Printer.cpp\"",
+  "file": "C:/c++/Integration tool/integrator/Printer.cpp",
+  "output": "C:/c++/Integration tool/build/CMakeFiles/Calculator.dir/integrator/Printer.cpp.obj"
+},
+{
+  "directory": "C:/c++/Integration tool/build",
+  "command": "C:\\mingw64\\bin\\c++.exe -I\"C:/c++/Integration tool/lexer\" -I\"C:/c++/Integration tool/Parser\" -I\"C:/c++/Integration tool/integrator\" -isystem \"C:/c++/Integration tool\" -g -std=gnu++17 -o CMakeFiles\\Calculator.dir\\integrator\\ExplanationBuilder.cpp.obj -c \"C:\\c++\\Integration tool\\integrator\\ExplanationBuilder.cpp\"",
+  "file": "C:/c++/Integration tool/integrator/ExplanationBuilder.cpp",
+  "output": "C:/c++/Integration tool/build/CMakeFiles/Calculator.dir/integrator/ExplanationBuilder.cpp.obj"
+}
+]

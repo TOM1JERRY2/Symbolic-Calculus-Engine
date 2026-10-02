@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytical Calculus Step Engine</title>
+    <style>
+        :root {
+            --bg-light: #f8fafc;
+            --panel-white: #ffffff;
+            --accent-blue: #0b66c2;
+            --accent-green: #0f766e;
+            --accent-red: #dc2626;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-gray: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 800px; }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af, #0b66c2);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(30, 64, 175, 0.15);
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .header h1 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -0.5px; }
+        .badge { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; color: #ffffff; margin-top: 8px; }
+
+        .calculator-panel {
+            background-color: var(--panel-white);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-gray);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        .input-group { display: flex; gap: 12px; margin-bottom: 20px; }
+        input[type="text"] {
+            flex: 1;
+            background-color: #ffffff;
+            border: 2px solid var(--border-gray);
+            border-radius: 8px;
+            padding: 14px;
+            color: var(--text-main);
+            font-size: 16px;
+            font-family: "Courier New", monospace;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus { border-color: var(--accent-blue); outline: none; }
+
+        button {
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 0 26px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover { background-color: #1e40af; }
+
+        .output-card { border-radius: 8px; padding: 25px; margin-top: 20px; display: none; }
+        .success-card { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .error-card { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .paywall-card { background: #f5f3ff; border: 1px solid #ddd6fe; text-align: center; color: #4c1d95; }
+
+        .result-box { background: #ffffff; border: 1px solid rgba(0,0,0,0.08); padding: 15px; border-radius: 6px; font-family: monospace; font-size: 18px; color: #065f46; font-weight: bold; margin: 10px 0; box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
+        .steps-box { white-space: pre-wrap; font-family: monospace; background: #ffffff; border: 1px solid var(--border-gray); padding: 15px; border-radius: 6px; color: #334155; line-height: 1.6; margin-top: 15px; border-left: 4px solid var(--accent-blue); box-shadow: inset 0 1px 2px rgba(0,0,0,0.02); }
+        .pay-btn { display: inline-block; background-color: #10b981; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; margin: 15px 0; box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2); }
+        .pay-btn:hover { background-color: #059669; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Analytical Calculus Step Engine</h1>
+        <div class="badge" id="pass-status">Pass Status: Free Account Window</div>
+    </div>
+
+    <div class="calculator-panel">
+        <div class="input-group">
+            <input type="text" id="math-input" placeholder="Enter expression (e.g. 3*x^2 + sin(4*x))">
+            <button onclick="calculateIntegral()">Integrate</button>
+        </div>
+
+        <!-- Success Panel -->
+        <div id="output-success" class="output-card success-card">
+            <strong style="color: var(--accent-green);">✓ EVALUATION SUCCESSFUL</strong>
+            <div id="formula-readout" class="result-box"></div>
+            <div style="margin-top:15px; font-weight:bold; color:var(--text-muted);">Step-by-Step Derivation Logs:</div>
+            <div id="steps-readout" class="steps-box"></div>
+        </div>
+
+        <!-- Paywall Panel -->
+        <div id="output-paywall" class="output-card paywall-card">
+            <h3 style="color: #6d28d9; margin-top:0; font-weight:700;">🔐 Full Step Derivation Locked</h3>
+            <p style="color: var(--text-muted);">Get instant access to detailed, student-friendly solution steps for just ₹29.50/month.</p>
+            <a id="upi-link" href="#" class="pay-btn" target="_blank">🚀 Pay ₹29.50 via Paytm / PhonePe / GPay</a>
+            <div style="margin-top: 15px;">
+                <input type="text" id="utr-input" placeholder="Enter 12-Digit UPI UTR Reference Number" style="max-width: 300px; text-align: center; margin-bottom:10px;"><br>
+                <button onclick="verifyUtr()" style="padding: 10px 20px; font-size:14px; background:#6d28d9; color:white; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">Verify & Activate Pass</button>
+            </div>
+        </div>
+
+        <!-- Error Panel -->
+        <div id="output-error" class="output-card error-card">
+            <strong style="color: var(--accent-red);">❌ ENGINE EXCEPTION</strong>
+            <p id="error-message" style="margin: 10px 0 0 0; font-family: monospace;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    if (!localStorage.getItem('user_token')) {
+        localStorage.setItem('user_token', 'tok_' + Math.random().toString(36).substr(2, 9));
+    }
+    const userToken = localStorage.getItem('user_token');
+
+    function hideAllCards() {
+        document.getElementById('output-success').style.display = 'none';
+        document.getElementById('output-paywall').style.display = 'none';
+        document.getElementById('output-error').style.display = 'none';
+    }
+
+    async function calculateIntegral() {
+        hideAllCards();
+        const expr = document.getElementById('math-input').value.trim();
+        if (!expr) return;
+
+        try {
+            const response = await fetch('http://localhost:8080/api/integrate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ expression: expr, token: userToken })
+            });
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                document.getElementById('formula-readout').innerText = "= " + data.simplified;
+                document.getElementById('steps-readout').innerText = data.steps;
+                document.getElementById('output-success').style.display = 'block';
+            } else if (data.status === 'paywall_active') {
+                document.getElementById('upi-link').href = data.upi_link;
+                document.getElementById('output-paywall').style.display = 'block';
+            } else {
+                document.getElementById('error-message').innerText = data.message;
+                document.getElementById('output-error').style.display = 'block';
+            }
+        } catch (err) {
+            alert("Network connection error. Ensure your C++ backend Calculator.exe is running!");
+        }
+    }
+
+    async function verifyUtr() {
+        const utrValue = document.getElementById('utr-input').value.trim();
+        if (utrValue.length !== 12) {
+            alert("UTR must be exactly 12 digits long.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:8080/api/verify-utr', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: userToken, utr: utrValue })
+            });
+            const data = await response.json();
+
+            if (data.status === 'unlocked') {
+                alert(data.message);
+                document.getElementById('pass-status').innerText = "Pass Status: Premium Pass Active ✨";
+                document.getElementById('pass-status').style.color = "#10b981";
+                calculateIntegral();
+            } else {
+                alert(data.message);
+            }
+        } catch (err) {
+            alert("Error sending validation payload to C++ backend context.");
+        }
+    }
+</script>
+
+</body>
+</html>
