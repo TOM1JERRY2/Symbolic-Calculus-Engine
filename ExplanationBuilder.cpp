@@ -7,8 +7,9 @@ std::string ExplanationBuilder::constantRule(const std::shared_ptr<ASTNode>& nod
 }
 
 std::string ExplanationBuilder::variableRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& result) {
+    // Ensuring explicit std::string conversion from node fields to prevent pointer conversion warnings
     return "  ■ Rule: ∫ x dx = 0.5 * x^2\n"
-           "    ∫ " + node->name + " dx  =  " + Printer::toFormulaString(result) + "\n\n";
+           "    ∫ " + std::string(node->name) + " dx  =  " + Printer::toFormulaString(result) + "\n\n";
 }
 
 std::string ExplanationBuilder::powerRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& exponent, const std::shared_ptr<ASTNode>& result) {
@@ -56,7 +57,9 @@ std::string ExplanationBuilder::reverseChainProduct(const std::shared_ptr<ASTNod
 }
 
 std::string ExplanationBuilder::reverseChainShift(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& inside, double scaleFactor, const std::shared_ptr<ASTNode>& result) {
+    // Explicitly converting double scaleFactor into string output to resolve compilation mismatches
     return "  ■ Reverse Chain Rule (Linear Shift):\n"
+           "    Scale Factor (a): " + std::to_string(scaleFactor) + "\n"
            "    ∫ f(a*x + b) dx = (1/a) * F(a*x + b)\n"
            "    ∫ " + Printer::toFormulaString(node) + " dx  =  " + Printer::toFormulaString(result) + "\n\n";
 }
