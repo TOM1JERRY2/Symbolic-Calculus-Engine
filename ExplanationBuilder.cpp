@@ -32,7 +32,7 @@ std::string ExplanationBuilder::linearityRule(const std::shared_ptr<ASTNode>& no
     return ss.str();
 }
 
-std::string ExplanationBuilder::constantMultipleRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& constantNode, const std::shared_ptr<ASTNode>& innerNode, const std::string& innerSteps, const std::shared_ptr<ASTnode>& result) {
+std::string ExplanationBuilder::constantMultipleRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& constantNode, const std::shared_ptr<ASTNode>& innerNode, const std::string& innerSteps, const std::shared_ptr<ASTNode>& result) {
     std::stringstream ss;
     ss << "  ■ Constant Rule: ∫ c*f(x)dx = c * ∫ f(x)dx\n"
        << "    Pull out " << Printer::toFormulaString(constantNode) << " ->  " << Printer::toFormulaString(constantNode) << " * ∫ " << Printer::toFormulaString(innerNode) << " dx\n"
