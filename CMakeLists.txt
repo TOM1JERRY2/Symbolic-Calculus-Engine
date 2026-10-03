@@ -4,13 +4,13 @@ project(IntegrationCalculator VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 1. Directly list the flat source files sitting in your repository root
+# 1. Directly list the source files using the exact case-sensitive names from your repository
 add_executable(Calculator
     Server.cpp
     lexer.cpp
     Parser.cpp
-    Integrator.cpp
-    Printer.cpp
+    integrator.cpp
+    printer.cpp
     ExplanationBuilder.cpp
 )
 
