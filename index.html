@@ -128,8 +128,8 @@
 </div>
 
 <script>
-    // Global endpoint definition utilizing your live network tunnel string
-    const BACKEND_URL = "https://pinggy-free.link";
+    // Global endpoint definition pointing to your exact live network tunnel string
+    const BACKEND_URL = "https://jfhzr-2401-4900-890b-f305-54ef-ec8b-b50f-4f10.run.pinggy-free.link";
 
     if (!localStorage.getItem('user_token')) {
         localStorage.setItem('user_token', 'tok_' + Math.random().toString(36).substr(2, 9));
@@ -188,16 +188,16 @@
             const data = await response.json();
 
             if (data.status === 'verified') {
-                alert("Payment verified! Access granted.");
-                document.getElementById('pass-status').innerText = "Pass Status: Premium Lifetime Activated";
-                document.getElementById('pass-status').style.background = "#10b981";
+                alert("Payment verified! Full derivation access granted.");
+                document.getElementById('pass-status').innerText = "Pass Status: Premium Plan Activated";
+                document.getElementById('pass-status').style.background = "#0f766e";
                 hideAllCards();
             } else {
                 alert("Verification Failed: " + data.message);
             }
         } catch (err) {
             console.error(err);
-            alert("Error trying to verify payment with the calculator endpoint.");
+            alert("Error sending transaction payload data to verification pipeline endpoints.");
         }
     }
 </script>
