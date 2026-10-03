@@ -4,20 +4,17 @@ project(IntegrationCalculator VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 1. Unified source files matching your flat directory structure
-set(SOURCES
-    "Server.cpp"
-    "lexer.cpp"
-    "Parser.cpp"
-    "Integrator.cpp"
-    "Printer.cpp"
-    "ExplanationBuilder.cpp"
+# 1. Directly list the flat source files sitting in your repository root
+add_executable(Calculator
+    Server.cpp
+    lexer.cpp
+    Parser.cpp
+    Integrator.cpp
+    Printer.cpp
+    ExplanationBuilder.cpp
 )
 
-# 2. Build target binary executable
-add_executable(Calculator ${SOURCES})
-
-# 3. Locate multi-threading libraries required by Crow
+# 2. Locate multi-threading libraries required by Crow
 find_package(Threads REQUIRED)
 
 # Link networking libraries
@@ -27,6 +24,6 @@ else()
     target_link_libraries(Calculator PRIVATE Threads::Threads)
 endif()
 
-# 4. Include the base root directory for header files
+# 3. Include base directory path configurations
 target_include_directories(Calculator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(Calculator SYSTEM BEFORE PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
