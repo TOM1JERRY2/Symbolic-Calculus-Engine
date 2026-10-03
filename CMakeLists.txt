@@ -9,8 +9,8 @@ add_executable(Calculator
     Server.cpp
     lexer.cpp
     Parser.cpp
-    integrator.cpp
-    printer.cpp
+    Integrator.cpp
+    Printer.cpp
     ExplanationBuilder.cpp
 )
 
