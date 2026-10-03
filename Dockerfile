@@ -16,16 +16,17 @@ WORKDIR /app
 # Copy the entire repository into the build container
 COPY . .
 
-# Fix: Safely clean up local Windows build configurations without touching CMakeLists.txt
-RUN rm -f CMakeCache.txt && rm -rf build && mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
+# Fix: Clean up local build artifacts and build completely fresh from the true root directory
+RUN rm -rf build && rm -f CMakeCache.txt && rm -rf CMakeFiles
+RUN mkdir -p build_dir && cd build_dir && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
 # Stage 2: Create a minimal, lightweight runtime image
 FROM ubuntu:22.04
 
 WORKDIR /app
 
-# Copy the compiled 'Calculator' binary from the builder stage
-COPY --from=builder /app/build/Calculator /app/Calculator
+# Copy the compiled 'Calculator' binary from the fresh build directory stage
+COPY --from=builder /app/build_dir/Calculator /app/Calculator
 
 # Crow framework's default port. Change this if you customized it in Server.cpp
 EXPOSE 18080
