@@ -128,6 +128,9 @@
 </div>
 
 <script>
+    // Global endpoint definition utilizing your live network tunnel string
+    const BACKEND_URL = "https://pinggy-free.link";
+
     if (!localStorage.getItem('user_token')) {
         localStorage.setItem('user_token', 'tok_' + Math.random().toString(36).substr(2, 9));
     }
@@ -145,8 +148,7 @@
         if (!expr) return;
 
         try {
-            // Mapped directly to your active online connection bridge
-            const response = await fetch('https://pinggy-free.link', {
+            const response = await fetch(`${BACKEND_URL}/api/integrate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ expression: expr, token: userToken })
@@ -165,39 +167,39 @@
                 document.getElementById('output-error').style.display = 'block';
             }
         } catch (err) {
-            alert("Network connection error. Ensure your C++ backend Calculator.exe is running!");
+            console.error(err);
+            alert("Network connection error. Ensure your C++ backend Calculator.exe and Pinggy tunnel are running!");
         }
     }
 
     async function verifyUtr() {
         const utrValue = document.getElementById('utr-input').value.trim();
-        if (utrValue.length !== 12) {
-            alert("UTR must be exactly 12 digits long.");
+        if (utrValue.length !== 12 || isNaN(utrValue)) {
+            alert("UTR must be exactly 12 numeric digits long.");
             return;
         }
 
         try {
-            // Re-routed through your public tunnel endpoint to prevent local connection breaks
-            const response = await fetch('https://pinggy-free.link', {
+            const response = await fetch(`${BACKEND_URL}/api/verify-utr`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token: userToken, utr: utrValue })
+                body: JSON.stringify({ utr: utrValue, token: userToken })
             });
             const data = await response.json();
 
-            if (data.status === 'unlocked') {
-                alert(data.message);
-                document.getElementById('pass-status').innerText = "Pass Status: Premium Pass Active ✨";
-                document.getElementById('pass-status').style.color = "#10b981";
-                calculateIntegral();
+            if (data.status === 'verified') {
+                alert("Payment verified! Access granted.");
+                document.getElementById('pass-status').innerText = "Pass Status: Premium Lifetime Activated";
+                document.getElementById('pass-status').style.background = "#10b981";
+                hideAllCards();
             } else {
-                alert(data.message);
+                alert("Verification Failed: " + data.message);
             }
         } catch (err) {
-            alert("Error sending validation payload to C++ backend context.");
+            console.error(err);
+            alert("Error trying to verify payment with the calculator endpoint.");
         }
     }
 </script>
-
 </body>
 </html>
