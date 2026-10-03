@@ -10,11 +10,10 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-# The .dockerignore file handles caching; we just copy source code directly
 COPY . .
 
-# Run standard, clean build sequence
-RUN mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
+# Explicitly drop the persistent local cache file before configuration
+RUN rm -f CMakeCache.txt && mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
 FROM ubuntu:22.04
 
