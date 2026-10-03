@@ -12,8 +12,8 @@ WORKDIR /app
 
 COPY . .
 
-# CRITICAL FIX: Rename the file dynamically to fix the Linux case-sensitivity mismatch!
-RUN mv ASTnode.hpp ASTNode.hpp
+# CRITICAL FIX: Make a copy so BOTH 'ASTNode.hpp' and 'ASTnode.hpp' exist simultaneously!
+RUN cp ASTnode.hpp ASTNode.hpp
 
 RUN rm -f CMakeCache.txt && mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
