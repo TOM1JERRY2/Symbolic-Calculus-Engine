@@ -3,6 +3,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include "ASTNode.hpp"
 
 class ExplanationBuilder {
@@ -18,4 +19,4 @@ public:
     static std::string reverseChainShift(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& inside, double scaleFactor, const std::shared_ptr<ASTNode>& result);
 };
 
-#endif // EXPLANATION_BUILDER_HPP
+#endif
