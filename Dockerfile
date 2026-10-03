@@ -16,8 +16,8 @@ WORKDIR /app
 # Copy the entire repository into the build container
 COPY . .
 
-# Fix: Clean any local Windows build artifacts before running CMake on Linux
-RUN rm -f CMakeCache.txt && rm -rf CMakeFiles && mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
+# Fix: Safely clean up local Windows build configurations without touching CMakeLists.txt
+RUN rm -f CMakeCache.txt && rm -rf build && mkdir -p build && cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make
 
 # Stage 2: Create a minimal, lightweight runtime image
 FROM ubuntu:22.04
