@@ -150,7 +150,9 @@
         try {
             const response = await fetch(`${BACKEND_URL}/api/integrate`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json' ,
+                          'ngrok-skip-browser-warning': 'true'
+                         },
                 body: JSON.stringify({ expression: expr, token: userToken })
             });
             const data = await response.json();
