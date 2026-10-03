@@ -2,28 +2,28 @@
 #include "Printer.hpp"
 #include <sstream>
 
-std::string ExplanationBuilder::constantRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::constantRule(const std::shared_ptr<ASTnode>& node, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss << "  ■ Rule: ∫ k dx = k * x\n"
        << "    ∫ " << Printer::toFormulaString(node) << " dx  =  " << Printer::toFormulaString(result) << "\n\n";
     return ss.str();
 }
 
-std::string ExplanationBuilder::variableRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::variableRule(const std::shared_ptr<ASTnode>& node, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss << "  ■ Rule: ∫ x dx = 0.5 * x^2\n"
        << "    ∫ " << node->name << " dx  =  " << Printer::toFormulaString(result) << "\n\n";
     return ss.str();
 }
 
-std::string ExplanationBuilder::powerRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& exponent, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::powerRule(const std::shared_ptr<ASTnode>& node, const std::shared_ptr<ASTnode>& exponent, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss << "  ■ Power Rule: ∫ x^n dx = (x^(n+1)) / (n+1)\n"
        << "    ∫ " << Printer::toFormulaString(node) << " dx  =  " << Printer::toFormulaString(result) << "\n\n";
     return ss.str();
 }
 
-std::string ExplanationBuilder::linearityRule(const std::shared_ptr<ASTNode>& node, const std::string& leftSteps, const std::string& rightSteps, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::linearityRule(const std::shared_ptr<ASTnode>& node, const std::string& leftSteps, const std::string& rightSteps, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss << "  ■ Sum Rule: ∫(f + g)dx = ∫f dx + ∫g dx\n"
        << "    1. Solve: ∫ " << Printer::toFormulaString(node->children[0]) << " dx:\n" << leftSteps
@@ -32,7 +32,7 @@ std::string ExplanationBuilder::linearityRule(const std::shared_ptr<ASTNode>& no
     return ss.str();
 }
 
-std::string ExplanationBuilder::constantMultipleRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& constantNode, const std::shared_ptr<ASTNode>& innerNode, const std::string& innerSteps, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::constantMultipleRule(const std::shared_ptr<ASTnode>& node, const std::shared_ptr<ASTnode>& constantNode, const std::shared_ptr<ASTnode>& innerNode, const std::string& innerSteps, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss << "  ■ Constant Rule: ∫ c*f(x)dx = c * ∫ f(x)dx\n"
        << "    Pull out " << Printer::toFormulaString(constantNode) << " ->  " << Printer::toFormulaString(constantNode) << " * ∫ " << Printer::toFormulaString(innerNode) << " dx\n"
@@ -41,7 +41,7 @@ std::string ExplanationBuilder::constantMultipleRule(const std::shared_ptr<ASTNo
     return ss.str();
 }
 
-std::string ExplanationBuilder::ibpRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& u, const std::shared_ptr<ASTNode>& du, const std::shared_ptr<ASTNode>& dv, const std::shared_ptr<ASTNode>& v, const std::string& vSteps, const std::shared_ptr<ASTNode>& du_v, const std::string& remainderSteps, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::ibpRule(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTnode>& u, const std::shared_ptr<ASTnode>& du, const std::shared_ptr<ASTnode>& dv, const std::shared_ptr<ASTnode>& v, const std::string& vSteps, const std::shared_ptr<ASTnode>& du_v, const std::string& remainderSteps, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss << "  ■ Integration by Parts: ∫ u dv = u*v - ∫ v du\n"
        << "    [Setup]\n"
@@ -57,7 +57,7 @@ std::string ExplanationBuilder::ibpRule(const std::shared_ptr<ASTNode>& node, co
     return ss.str();
 }
 
-std::string ExplanationBuilder::standardLookup(const std::shared_ptr<ASTNode>& node, const std::shared_ptr<ASTNode>& result) {
+std::string ExplanationBuilder::standardLookup(const std::shared_ptr<ASTnode>& node, const std::shared_ptr<ASTnode>& result) {
     std::stringstream ss;
     ss & node, const std::shared_ptr<ASTNode>& inside, const std::shared_ptr<ASTNode>& coeffNode, const std::shared_ptr<ASTNode>& result) {
     std::stringstream ss;
